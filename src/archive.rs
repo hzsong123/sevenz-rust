@@ -76,6 +76,22 @@ pub struct SevenZArchiveEntry {
     // pub(crate) content_methods: LinkedList<SevenZMethodConfiguration>,
     pub(crate) content_methods: Arc<Vec<SevenZMethodConfiguration>>,
 }
+impl SevenZArchiveEntry {
+    pub fn new_formemory(entry_name: String) -> Self {
+        let last_modified_date = FileTime::now();
+        let content_methods: Arc<Vec<SevenZMethodConfiguration>> = Arc::new(vec![]);
+        
+        Self {
+            name: entry_name,
+            has_stream: true,
+            is_directory: false,
+            has_last_modified_date: true,
+            last_modified_date,
+            content_methods,
+            ..Default::default()
+        }
+    }
+}
 
 impl SevenZArchiveEntry {
     pub fn name(&self) -> &str {
