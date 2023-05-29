@@ -66,6 +66,12 @@ pub struct SevenZWriter<W: Write> {
     num_non_empty_streams: usize,
 }
 
+impl SevenZWriter<std::io::Cursor<Vec<u8>>> {
+    pub fn bytes(&self) -> &Vec<u8> {
+        self.output.get_ref()
+    }
+}
+
 #[cfg(not(target_arch = "wasm32"))]
 impl SevenZWriter<File> {
     /// Creates a file to write a 7z archive to
